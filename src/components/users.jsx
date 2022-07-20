@@ -4,10 +4,10 @@ import API from "../API";
 
 const Users = () => {
   const [users, setUsers] = useState(API.users.fetchAll());
-  const handleDelete = (_id) => {
-    const newUsers = users.filter((user) => user !== _id);
+  const handleDelete = (id) => {
+    const newUsers = users.filter((user) => user !== id);
     setUsers(newUsers);
-    //setUsers((prevState) => prevState.filter((user) => user != _id));
+    //setUsers((prevState) => prevState.filter((user) => user != id));
   };
   let classes = "badge ";
   classes += users.length === 0 ? "bg-danger" : "bg-primary";
@@ -15,7 +15,7 @@ const Users = () => {
     if (users.length === 1 || users.length >= 5) {
       return `${users.length} человек тусанёт с тобой сегодня`;
     } else if (users.length <= 4 && users.length !== 0) {
-      return `${users.length} человека тусанёт с тобой сегодня`;
+      return `${users.length} человека тусанут с тобой сегодня`;
     }
   };
 
@@ -48,7 +48,10 @@ const Users = () => {
               <td>{user.name}</td>
               <td>
                 {user.qualities.map((quality) => (
-                  <span className={`badge bg-${quality.color} m-1`}>
+                  <span
+                    key={quality.name}
+                    className={`badge bg-${quality.color} m-1`}
+                  >
                     {quality.name}
                   </span>
                 ))}
