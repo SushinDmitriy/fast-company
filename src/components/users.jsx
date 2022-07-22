@@ -5,7 +5,7 @@ import API from "../API";
 const Users = () => {
   const [users, setUsers] = useState(API.users.fetchAll());
   const handleDelete = (id) => {
-    const newUsers = users.filter((user) => user !== id);
+    const newUsers = users.filter((user) => user._id !== id);
     setUsers(newUsers);
     //setUsers((prevState) => prevState.filter((user) => user != id));
   };
@@ -62,7 +62,7 @@ const Users = () => {
               <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleDelete(user)}
+                  onClick={() => handleDelete(user._id)}
                 >
                   Удалить
                 </button>
