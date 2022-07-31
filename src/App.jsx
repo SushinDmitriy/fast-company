@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import API from "./API";
 import Users from "./components/users";
 import SearchStatus from "./components/searchStatus";
+import Pagination from "./components/pagination";
+import { paginate } from "./utils/pagitane";
 
 const App = () => {
   const [users, setUsers] = useState(API.users.fetchAll());
@@ -15,6 +17,14 @@ const App = () => {
     userBookMark.bookmark = !userBookMark.bookmark;
     setUsers(updatedState);
   };
+  const count = users.length;
+  const pageSize = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const handePageChange = (pageIndex) => {
+    setCurrentPage(pageIndex);
+  };
+
+  const userCrop = paginate(users, currentPage, pageSize);
 
   if (users.length === 0) {
     return (
@@ -41,12 +51,18 @@ const App = () => {
         </thead>
         <tbody>
           <Users
-            users={users}
+            users={userCrop}
             onDelete={handleDelete}
             onToggleBookMark={handleToggleBookMark}
           />
         </tbody>
       </table>
+      <Pagination
+        itemsCount={count}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={handePageChange}
+      />
     </>
   );
 };
