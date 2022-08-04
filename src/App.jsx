@@ -8,7 +8,7 @@ import { paginate } from "./utils/pagitane";
 const App = () => {
     const [users, setUsers] = useState(API.users.fetchAll());
     const handleDelete = (userId) => {
-        const newUsers = users.filter((user) => user !== userId);
+        const newUsers = users.filter((user) => user !== userId); // user._id !== userId. Это сейчас рабоатет, потому что ссылка одна
         setUsers(newUsers);
     };
     const handleToggleBookMark = (userId) => {
