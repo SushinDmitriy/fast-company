@@ -4,10 +4,6 @@ import BookMark from "./bookmark";
 import PropTypes from "prop-types";
 
 const User = ({ user, onDelete, onToggleBookMark }) => {
-    const handleDelete = () => {
-        onDelete(user);
-    };
-
     return (
         <tr>
             <td>{user.name}</td>
@@ -27,7 +23,10 @@ const User = ({ user, onDelete, onToggleBookMark }) => {
                 />
             </td>
             <td>
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => onDelete(user._id)}
+                >
                     Удалить
                 </button>
             </td>
