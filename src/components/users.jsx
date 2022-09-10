@@ -32,10 +32,15 @@ const Users = () => {
         setUsers(users.filter((user) => user._id !== userId));
     };
     const handleToggleBookMark = (userId) => {
-        const updatedState = [...users];
-        const userBookMark = updatedState.find((user) => user._id === userId);
-        userBookMark.bookmark = !userBookMark.bookmark;
-        setUsers(updatedState);
+        const updateUsers = users.map((user) => {
+            if (user._id === userId) {
+                return { ...user, bookmark: !user.bookmark };
+            }
+
+            return user;
+        });
+
+        setUsers(updateUsers);
     };
 
     const handePageChange = (pageIndex) => {
